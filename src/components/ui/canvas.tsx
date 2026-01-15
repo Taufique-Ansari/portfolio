@@ -1,4 +1,16 @@
 // @ts-ignore
+function Node() {
+  // @ts-ignore
+  this.x = 0;
+  // @ts-ignore
+  this.y = 0;
+  // @ts-ignore
+  this.vy = 0;
+  // @ts-ignore
+  this.vx = 0;
+}
+
+// @ts-ignore
 function n(e) {
   // @ts-ignore
   this.init(e || {});
@@ -44,6 +56,7 @@ Line.prototype = {
     // @ts-ignore
     this.nodes = [];
     for (var t, n = 0; n < E.size; n++) {
+      // @ts-ignore
       t = new Node();
       // @ts-ignore
       t.x = pos.x;
@@ -67,8 +80,8 @@ Line.prototype = {
       // @ts-ignore
       (t = this.nodes[i]),
         0 < i &&
-          // @ts-ignore
-          ((n = this.nodes[i - 1]),
+        // @ts-ignore
+        ((n = this.nodes[i - 1]),
           (t.vx += (n.x - t.x) * e),
           (t.vy += (n.y - t.y) * e),
           (t.vx += n.vx * E.dampening),
@@ -121,21 +134,23 @@ function onMousemove(e) {
   function o() {
     lines = [];
     for (let e = 0; e < E.trails; e++)
+      // @ts-ignore
       lines.push(new Line({ spring: 0.45 + (e / E.trails) * 0.025 }));
   }
   // @ts-ignore
   function c(e) {
     e.touches
       ? // @ts-ignore
-        ((pos.x = e.touches[0].pageX), (pos.y = e.touches[0].pageY))
+      ((pos.x = e.touches[0].pageX), (pos.y = e.touches[0].pageY))
       : // @ts-ignore
-        ((pos.x = e.clientX), (pos.y = e.clientY)),
+      ((pos.x = e.clientX), (pos.y = e.clientY)),
       e.preventDefault();
   }
   // @ts-ignore
   function l(e) {
     // @ts-ignore
     1 == e.touches.length &&
+      // @ts-ignore
       ((pos.x = e.touches[0].pageX), (pos.y = e.touches[0].pageY));
   }
   document.removeEventListener("mousemove", onMousemove);
@@ -184,6 +199,7 @@ var ctx,
   // @ts-ignore
   f,
   e = 0,
+  // @ts-ignore
   pos = {},
   // @ts-ignore
   lines = [],
@@ -195,18 +211,13 @@ var ctx,
     dampening: 0.025,
     tension: 0.99,
   };
-function Node() {
-  this.x = 0;
-  this.y = 0;
-  this.vy = 0;
-  this.vx = 0;
-}
 
 export const renderCanvas = function () {
   // @ts-ignore
   ctx = document.getElementById("canvas").getContext("2d");
   ctx.running = true;
   ctx.frame = 1;
+  // @ts-ignore
   f = new n({
     phase: Math.random() * 2 * Math.PI,
     amplitude: 85,
