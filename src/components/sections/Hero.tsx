@@ -14,7 +14,8 @@ export function Hero() {
                 <div className="absolute inset-0 pointer-events-none flex justify-center">
                     {/* Mobile SVG Image & Structure */}
                     <svg className="absolute w-[98%] -top-[0%] h-full md:hidden" viewBox="0 0 374 811" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
-<path d="M0.5 690.059V36.0444C0.5 30.5216 4.97716 26.0444 10.5 26.0444L86 26.0444C91.5229 26.0444 96 21.5672 96 16.0444V10.5C96 4.97716 100.477 0.500005 106 0.500005L337 0.5C342.523 0.5 347 4.97714 347 10.5V16.0444C347 21.5673 351.477 26.0444 357 26.0444L363.5 26.0444C369.023 26.0444 373.5 30.5215 373.5 36.0444V690.059C373.5 695.582 369.023 700.059 363.5 700.059H339.273C333.75 700.059 329.273 704.536 329.273 710.059V716.5C329.273 722.023 324.796 726.5 319.273 726.5H37.4981C31.9753 726.5 27.4981 722.023 27.4981 716.5V710.059C27.4981 704.536 23.0209 700.059 17.4981 700.059H10.5C4.97715 700.059 0.5 695.582 0.5 690.059Z" fill="url(#pattern0_21_4)" stroke="black" stroke-opacity="0.4"/>                        <foreignObject x="0" y="0" width="374" height="811" clipPath="url(#heroClipMobile)">
+                        <path d="M0.5 690.059V36.0444C0.5 30.5216 4.97716 26.0444 10.5 26.0444L86 26.0444C91.5229 26.0444 96 21.5672 96 16.0444V10.5C96 4.97716 100.477 0.500005 106 0.500005L337 0.5C342.523 0.5 347 4.97714 347 10.5V16.0444C347 21.5673 351.477 26.0444 357 26.0444L363.5 26.0444C369.023 26.0444 373.5 30.5215 373.5 36.0444V690.059C373.5 695.582 369.023 700.059 363.5 700.059H339.273C333.75 700.059 329.273 704.536 329.273 710.059V716.5C329.273 722.023 324.796 726.5 319.273 726.5H37.4981C31.9753 726.5 27.4981 722.023 27.4981 716.5V710.059C27.4981 704.536 23.0209 700.059 17.4981 700.059H10.5C4.97715 700.059 0.5 695.582 0.5 690.059Z" fill="url(#pattern0_21_4)" stroke="black" stroke-opacity="0.4" />                        
+                        <foreignObject x="0" y="0" width="379" height="811" clipPath="url(#heroClipMobile)">
                             <FlickeringGrid squareSize={2.5} gridGap={8} flickerChance={0.3} color="rgb(255, 0, 0)" maxOpacity={0.9} className="w-full h-full opacity-60 mix-blend-normal" />
                         </foreignObject>
                         <image x="-5" y="700" width="33" height="33" href="/screw.png" style={{ mixBlendMode: 'multiply', opacity: 0.9 }} className="rounded-full" />
@@ -70,7 +71,7 @@ export function Hero() {
                 <div className="relative z-10 w-full h-full flex flex-col">
                     {/* Top Bar */}
                     <div className="flex mt-[3%] justify-between items-start font-doto text-sm sm:text-base lg:text-xl font-bold tracking-wider pl-[2%] pr-[7%]">
-                        <div className="text-[#333] relative -left-[2px] sm:left-0 -bottom-[20%] sm:bottom-[28%] text-[4vw] sm:text-[2vw]">
+                        <div className="text-[#333] relative -left-[2px] sm:left-0 -bottom-[15%] sm:bottom-[28%] text-[4vw] sm:text-[2vw]">
                             TAUFIQUE<span className="text-[rgba(255,0,0,0.5)]">•</span>
                         </div>
                         <nav className="hidden md:flex gap-4 lg:gap-8 text-[#555] font-extrabold z-10 text-[2vw] sm:text-xs lg:text-sm uppercase pt-1">
@@ -91,10 +92,14 @@ export function Hero() {
                         </h1>
                     </div>
 
+                    <div>
+                        
+                    </div>
+
                     {/* Bottom Info Marquee */}
-                    <div className="relative z-20 -top-[25%] w-[79%] right-[2%] mx-auto overflow-hidden whitespace-nowrap">
+                    <div className="relative z-20 -top-[12.5%] sm:-top-[25%] w-[75%] sm:w-[79%] right-[3%] sm:right-[2%] mx-auto overflow-hidden whitespace-nowrap">
                         <div className="animate-marquee inline-block">
-                            <p className="font-doto text-[#cc0000] font-semibold text-[1.7vw]">
+                            <p className="font-doto text-[#cc0000] font-semibold text-[3vw] sm:text-[1.7vw]">
                                 <span className="text-[#333] mr-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hi, I'm Taufique Ansari •</span>
                                 A motivated and technically skilled Computer Science graduate with hands-on experience in enterprise software development.
                                 <span className="text-[#333] mr-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hi, I'm Taufique Ansari •</span>
