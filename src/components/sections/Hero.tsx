@@ -61,7 +61,7 @@ export function Hero() {
 
                     {/* Red Details Top Right Area */}
                 </div>
-                <button className={`absolute top-[1.7%] sm:top-[4.5%] right-[1.7%] sm:right-[1.3%] flex items-center justify-center z-999`} onClick={() => isMenuOpen ? setIsMenuOpen(false) : setIsMenuOpen(true)}>
+                <button className={`absolute top-[1.7%] sm:top-[4.5%] right-[1.7%] sm:right-[1.3%] flex items-center justify-center z-[999] sm:pointer-events-none`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
                     <div className="w-[5vw] sm:w-[2vw] h-[5vw] sm:h-[2vw] min-w-3 min-h-3 rounded-full border-[1px] border-[#cc0000] flex items-center justify-center shadow-inner">
                         <div className={`w-[50%] sm:w-[40%] h-[50%] sm:h-[40%] rounded-full bg-[#ff4d4d] shadow-sm ${isMenuOpen ? 'bg-green-500' : 'bg-[#ff4d4d]'}`}></div>
                     </div>
@@ -111,29 +111,9 @@ export function Hero() {
                     </div>
                 </div>
 
-                {/* Hamburger Menu Trigger */}
-                {/* <button
-                    onClick={() => setIsMenuOpen(true)}
-                    className="absolute z-40 top-[4%] right-[8%] w-[46px] h-[46px] md:top-[8%] md:right-[6%] md:w-[48px] md:h-[48px] bg-[#cc0000] rounded-full flex items-center justify-center cursor-pointer shadow-red-500/50 shadow-lg hover:scale-105 active:scale-95 transition-transform"
-                    aria-label="Open menu"
-                >
-                    <div className="flex flex-col gap-[4px] md:gap-[5px] items-center justify-center w-full h-full">
-                        <span className="block w-[20px] md:w-[24px] h-[3px] bg-white rounded-full"></span>
-                        <span className="block w-[20px] md:w-[24px] h-[3px] bg-white rounded-full"></span>
-                        <span className="block w-[20px] md:w-[24px] h-[3px] bg-white rounded-full"></span>
-                    </div>
-                </button> */}
-
                 {/* Glassmorphism Menu Overlay */}
                 {isMenuOpen && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black-[rgba(0, 0, 0, 0.59)]  backdrop-blur-[5px] transition-all duration-300 ease-in-out animate-fadeIn">
-                        {/* <button
-                            onClick={() => setIsMenuOpen(false)}
-                            className="absolute top-8 right-8 text-4xl text-white font-light w-12 h-12 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/40 transition-colors"
-                            aria-label="Close menu"
-                        >
-                            &times;
-                        </button> */}
                         <nav className="flex flex-col items-center gap-10 text-3xl font-doto font-bold text-black tracking-widest">
                             <a href="#home" onClick={() => setIsMenuOpen(false)} className="hover:text-[#cc0000] transition-colors drop-shadow-md animate-slideUp delay-100">HOME</a>
                             <a href="#about" onClick={() => setIsMenuOpen(false)} className="hover:text-[#cc0000] transition-colors drop-shadow-md animate-slideUp delay-200">ABOUT</a>
