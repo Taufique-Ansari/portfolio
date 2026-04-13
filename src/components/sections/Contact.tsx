@@ -66,11 +66,11 @@ export function Contact() {
         <section id="contact" className="py-20 px-4 md:px-8 lg:px-16 relative bg-gradient-to-b from-background to-background/50">
             <div className="max-w-6xl mx-auto">
                 <div className="text-center mb-16">
-                    <span className="text-emerald-500 font-medium text-sm uppercase tracking-wider">Get In Touch</span>
-                    <h2 className="text-3xl md:text-4xl font-bold mt-2 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+                    <span className="text-[rgba(255,0,0,0.8)] font-doto font-bold text-sm uppercase tracking-widest">Get In Touch</span>
+                    <h2 className="font-hedvig text-4xl md:text-5xl font-bold mt-2 text-black">
                         Contact Me
                     </h2>
-                    <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
+                    <p className="text-[#555] font-doto mt-4 max-w-2xl mx-auto">
                         I&apos;m always interested in new opportunities. Let&apos;s connect and discuss how I can contribute to your team.
                     </p>
                 </div>
@@ -79,21 +79,21 @@ export function Contact() {
                     {/* Contact Info */}
                     <div className="lg:col-span-2 space-y-6">
                         <div className="p-6 rounded-2xl border border-primary/10 bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm">
-                            <h3 className="text-lg font-bold text-foreground mb-6">Contact Information</h3>
+                            <h3 className="text-xl font-hedvig font-bold text-[#222] mb-6">Contact Information</h3>
 
                             <div className="space-y-4">
                                 {contactInfo.map((info, index) => (
                                     <a
                                         key={index}
                                         href={info.href}
-                                        className="flex items-center gap-4 p-3 rounded-xl hover:bg-emerald-500/10 transition-colors group"
+                                        className="flex items-center gap-4 p-3 rounded-xl hover:bg-red-500/10 transition-colors group"
                                     >
-                                        <div className="p-2 rounded-lg bg-emerald-500/10 group-hover:bg-emerald-500/20 transition-colors">
-                                            <info.icon className="w-5 h-5 text-emerald-500" />
+                                        <div className="p-2 rounded-lg bg-red-500/10 group-hover:bg-red-500/20 transition-colors">
+                                            <info.icon className="w-5 h-5 text-red-500" />
                                         </div>
                                         <div>
-                                            <p className="text-xs text-muted-foreground">{info.label}</p>
-                                            <p className="text-sm text-foreground font-medium">{info.value}</p>
+                                            <p className="text-xs text-[rgba(255,0,0,0.8)] font-doto font-bold uppercase tracking-wider">{info.label}</p>
+                                            <p className="text-sm font-doto text-[#333] font-bold">{info.value}</p>
                                         </div>
                                     </a>
                                 ))}
@@ -101,7 +101,7 @@ export function Contact() {
                         </div>
 
                         <div className="p-6 rounded-2xl border border-primary/10 bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm">
-                            <h3 className="text-lg font-bold text-foreground mb-6">Social Profiles</h3>
+                            <h3 className="text-xl font-hedvig font-bold text-[#222] mb-6">Social Profiles</h3>
 
                             <div className="space-y-3">
                                 {socialLinks.map((social, index) => (
@@ -110,14 +110,14 @@ export function Contact() {
                                         href={social.href}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center gap-4 p-3 rounded-xl hover:bg-emerald-500/10 transition-colors group"
+                                        className="flex items-center gap-4 p-3 rounded-xl hover:bg-red-500/10 transition-colors group"
                                     >
-                                        <div className="p-2 rounded-lg bg-emerald-500/10 group-hover:bg-emerald-500/20 transition-colors">
-                                            <social.icon className="w-5 h-5 text-emerald-500" />
+                                        <div className="p-2 rounded-lg bg-red-500/10 group-hover:bg-red-500/20 transition-colors">
+                                            <social.icon className="w-5 h-5 text-red-500" />
                                         </div>
                                         <div>
-                                            <p className="text-sm text-foreground font-medium">{social.label}</p>
-                                            <p className="text-xs text-muted-foreground">{social.username}</p>
+                                            <p className="text-sm font-doto text-[#333] font-bold">{social.label}</p>
+                                            <p className="text-xs text-[rgba(255,0,0,0.8)] font-doto font-bold">{social.username}</p>
                                         </div>
                                     </a>
                                 ))}
@@ -128,11 +128,11 @@ export function Contact() {
                     {/* Contact Form */}
                     <div className="lg:col-span-3">
                         <form onSubmit={handleSubmit} className="p-8 rounded-2xl border border-primary/10 bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm">
-                            <h3 className="text-lg font-bold text-foreground mb-6">Send a Message</h3>
+                            <h3 className="text-xl font-hedvig font-bold text-[#222] mb-6">Send a Message</h3>
 
                             <div className="space-y-6">
                                 <div>
-                                    <label htmlFor="name" className="block text-sm font-medium text-muted-foreground mb-2">
+                                    <label htmlFor="name" className="block text-sm font-bold font-doto text-[#555] mb-2">
                                         Your Name
                                     </label>
                                     <input
@@ -140,14 +140,14 @@ export function Contact() {
                                         id="name"
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-xl bg-background/50 border border-primary/10 text-foreground placeholder-muted-foreground focus:border-emerald-500/50 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
+                                        className="w-full px-4 py-3 rounded-xl bg-white border border-primary/10 text-[#333] font-doto placeholder-[#aaa] focus:border-red-500/50 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all shadow-sm"
                                         placeholder="John Doe"
                                         required
                                     />
                                 </div>
 
                                 <div>
-                                    <label htmlFor="email" className="block text-sm font-medium text-muted-foreground mb-2">
+                                    <label htmlFor="email" className="block text-sm font-bold font-doto text-[#555] mb-2">
                                         Your Email
                                     </label>
                                     <input
@@ -155,14 +155,14 @@ export function Contact() {
                                         id="email"
                                         value={formData.email}
                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-xl bg-background/50 border border-primary/10 text-foreground placeholder-muted-foreground focus:border-emerald-500/50 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
+                                        className="w-full px-4 py-3 rounded-xl bg-white border border-primary/10 text-[#333] font-doto placeholder-[#aaa] focus:border-red-500/50 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all shadow-sm"
                                         placeholder="john@example.com"
                                         required
                                     />
                                 </div>
 
                                 <div>
-                                    <label htmlFor="message" className="block text-sm font-medium text-muted-foreground mb-2">
+                                    <label htmlFor="message" className="block text-sm font-bold font-doto text-[#555] mb-2">
                                         Message
                                     </label>
                                     <textarea
@@ -170,7 +170,7 @@ export function Contact() {
                                         value={formData.message}
                                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                                         rows={5}
-                                        className="w-full px-4 py-3 rounded-xl bg-background/50 border border-primary/10 text-foreground placeholder-muted-foreground focus:border-emerald-500/50 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all resize-none"
+                                        className="w-full px-4 py-3 rounded-xl bg-white border border-primary/10 text-[#333] font-doto placeholder-[#aaa] focus:border-red-500/50 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all resize-none shadow-sm"
                                         placeholder="Tell me about your project or opportunity..."
                                         required
                                     />
@@ -178,7 +178,7 @@ export function Contact() {
 
                                 <Button
                                     type="submit"
-                                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-6"
+                                    className="w-full bg-red-600 hover:bg-red-700 text-white font-doto font-bold tracking-widest py-6 shadow-md shadow-red-500/20"
                                     disabled={isSubmitted}
                                 >
                                     {isSubmitted ? (

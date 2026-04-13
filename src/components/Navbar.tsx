@@ -28,7 +28,7 @@ export function Navbar() {
     return (
         <nav
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-                    ? "bg-background/80 backdrop-blur-lg border-b border-primary/10 shadow-lg"
+                    ? "bg-background/80 backdrop-blur-lg border-b border-red-500/10 shadow-lg"
                     : "bg-transparent"
                 }`}
         >
@@ -36,11 +36,11 @@ export function Navbar() {
                 <div className="flex items-center justify-between h-16 md:h-20">
                     {/* Logo */}
                     <a href="#home" className="flex items-center gap-2 group">
-                        <div className="p-2 rounded-lg bg-emerald-500/10 group-hover:bg-emerald-500/20 transition-colors">
-                            <Code2 className="w-5 h-5 text-emerald-500" />
+                        <div className="p-2 rounded-lg bg-red-500/10 group-hover:bg-red-500/20 transition-colors">
+                            <Code2 className="w-5 h-5 text-red-500" />
                         </div>
-                        <span className="font-bold text-lg text-foreground">
-                            Taufique<span className="text-emerald-500">.</span>
+                        <span className="font-bold font-hedvig text-xl text-black">
+                            Taufique<span className="text-[rgba(255,0,0,0.8)]">.</span>
                         </span>
                     </a>
 
@@ -50,7 +50,7 @@ export function Navbar() {
                             <a
                                 key={link.name}
                                 href={link.href}
-                                className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-primary/5 rounded-lg transition-colors"
+                                className="px-4 py-2 text-sm font-bold font-doto text-[#555] hover:text-black hover:bg-primary/5 rounded-lg transition-colors tracking-widest"
                             >
                                 {link.name}
                             </a>
@@ -60,7 +60,7 @@ export function Navbar() {
                     {/* CTA Button */}
                     <div className="hidden md:block">
                         <a href="#contact">
-                            <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">
+                            <Button className="font-doto font-bold tracking-widest bg-red-600 hover:bg-red-700 text-white shadow-md shadow-red-500/20">
                                 Get In Touch
                             </Button>
                         </a>
@@ -90,13 +90,13 @@ export function Navbar() {
                                 key={link.name}
                                 href={link.href}
                                 onClick={() => setIsOpen(false)}
-                                className="px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-primary/5 rounded-lg transition-colors"
+                                className="px-4 py-3 text-sm font-bold font-doto text-[#555] hover:text-black hover:bg-primary/5 rounded-lg transition-colors tracking-widest"
                             >
                                 {link.name}
                             </a>
                         ))}
                         <a href="#contact" onClick={() => setIsOpen(false)}>
-                            <Button className="w-full mt-2 bg-emerald-600 hover:bg-emerald-700 text-white">
+                            <Button className="w-full mt-2 font-doto font-bold tracking-widest bg-red-600 hover:bg-red-700 text-white shadow-md shadow-red-500/20">
                                 Get In Touch
                             </Button>
                         </a>

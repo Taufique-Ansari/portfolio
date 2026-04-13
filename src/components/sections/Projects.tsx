@@ -16,7 +16,7 @@ const projects = [
             "Developed RESTful APIs and connected them with an Angular frontend for seamless interaction",
         ],
         icon: Database,
-        gradient: "from-blue-500 to-cyan-500",
+        gradient: "from-red-500 to-neutral-500",
     },
     {
         title: "BrandMate",
@@ -30,7 +30,7 @@ const projects = [
             "Designed backend services using Express.js and MongoDB",
         ],
         icon: Globe,
-        gradient: "from-purple-500 to-pink-500",
+        gradient: "from-red-500 to-neutral-500",
         link: "https://brandmate-platform.vercel.app",
     },
 ];
@@ -40,11 +40,11 @@ export function Projects() {
         <section id="projects" className="py-20 px-4 md:px-8 lg:px-16 relative bg-gradient-to-b from-background to-background/50">
             <div className="max-w-6xl mx-auto">
                 <div className="text-center mb-16">
-                    <span className="text-emerald-500 font-medium text-sm uppercase tracking-wider">Portfolio</span>
-                    <h2 className="text-3xl md:text-4xl font-bold mt-2 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+                    <span className="text-[rgba(255,0,0,0.8)] font-doto font-bold text-sm uppercase tracking-widest">Portfolio</span>
+                    <h2 className="font-hedvig text-4xl md:text-5xl font-bold mt-2 text-black">
                         Featured Projects
                     </h2>
-                    <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
+                    <p className="text-[#555] font-doto mt-4 max-w-2xl mx-auto">
                         Showcasing my work in full-stack development, from enterprise applications to modern web platforms
                     </p>
                 </div>
@@ -53,7 +53,7 @@ export function Projects() {
                     {projects.map((project, index) => (
                         <div
                             key={index}
-                            className="group relative rounded-2xl border border-primary/10 bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm overflow-hidden hover:border-emerald-500/30 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-500/10"
+                            className="group relative rounded-2xl border border-primary/10 bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm overflow-hidden hover:border-red-500/30 transition-all duration-500 hover:shadow-2xl hover:shadow-red-500/10"
                         >
                             {/* Gradient overlay */}
                             <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
@@ -67,30 +67,30 @@ export function Projects() {
                                     <div className="flex gap-2">
                                         {project.link && (
                                             <a href={project.link} target="_blank" rel="noopener noreferrer">
-                                                <Button variant="ghost" size="icon" className="hover:bg-emerald-500/10 hover:text-emerald-500">
+                                                <Button variant="ghost" size="icon" className="hover:bg-red-500/10 hover:text-red-500">
                                                     <ExternalLink className="w-5 h-5" />
                                                 </Button>
                                             </a>
                                         )}
-                                        <Button variant="ghost" size="icon" className="hover:bg-emerald-500/10 hover:text-emerald-500">
+                                        <Button variant="ghost" size="icon" className="hover:bg-red-500/10 hover:text-red-500">
                                             <Github className="w-5 h-5" />
                                         </Button>
                                     </div>
                                 </div>
 
-                                <h3 className="text-xl md:text-2xl font-bold text-foreground group-hover:text-emerald-500 transition-colors">
+                                <h3 className="text-xl md:text-2xl font-hedvig font-bold text-[#222] group-hover:text-red-500 transition-colors">
                                     {project.title}
                                 </h3>
-                                <p className="text-emerald-500/80 text-sm font-medium mt-1">{project.subtitle}</p>
+                                <p className="text-[rgba(255,0,0,0.8)] font-doto text-sm font-bold mt-1">{project.subtitle}</p>
 
-                                <p className="text-muted-foreground mt-4 text-sm leading-relaxed">
+                                <p className="text-[#555] font-doto mt-4 text-sm leading-relaxed">
                                     {project.description}
                                 </p>
 
                                 <ul className="mt-4 space-y-2">
                                     {project.features.map((feature, i) => (
-                                        <li key={i} className="flex items-start text-sm text-muted-foreground">
-                                            <Layers className="w-4 h-4 mr-2 mt-0.5 text-emerald-500 flex-shrink-0" />
+                                        <li key={i} className="flex items-start text-sm text-[#333] font-doto leading-relaxed">
+                                            <Layers className="w-4 h-4 mr-2 mt-0.5 text-[rgba(255,0,0,0.8)] flex-shrink-0" />
                                             {feature}
                                         </li>
                                     ))}
@@ -101,7 +101,7 @@ export function Projects() {
                                     {project.technologies.map((tech, i) => (
                                         <span
                                             key={i}
-                                            className="px-3 py-1 text-xs font-medium bg-primary/5 text-muted-foreground rounded-full border border-primary/10 hover:border-emerald-500/30 hover:bg-emerald-500/10 hover:text-emerald-500 transition-colors cursor-default"
+                                            className="px-3 py-1 text-xs font-bold font-doto bg-red-500/5 text-[#555] rounded-full border border-red-500/10 hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-500 transition-colors cursor-default"
                                         >
                                             {tech}
                                         </span>

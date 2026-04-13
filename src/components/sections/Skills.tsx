@@ -6,7 +6,7 @@ const skillCategories = [
     {
         title: "Programming Languages",
         icon: Code2,
-        gradient: "from-emerald-500 to-teal-500",
+        gradient: "from-red-500 to-teal-500",
         skills: ["Java", "C++", "JavaScript", "SQL"],
     },
     {
@@ -18,7 +18,7 @@ const skillCategories = [
     {
         title: "Tools & DevOps",
         icon: Wrench,
-        gradient: "from-purple-500 to-pink-500",
+        gradient: "from-red-500 to-neutral-500",
         skills: ["Git", "GitHub", "Postman", "Maven", "NPM", "Vercel"],
     },
     {
@@ -34,11 +34,11 @@ export function Skills() {
         <section id="skills" className="py-20 px-4 md:px-8 lg:px-16 relative">
             <div className="max-w-6xl mx-auto">
                 <div className="text-center mb-16">
-                    <span className="text-emerald-500 font-medium text-sm uppercase tracking-wider">Expertise</span>
-                    <h2 className="text-3xl md:text-4xl font-bold mt-2 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+                    <span className="text-[rgba(255,0,0,0.8)] font-doto font-bold text-sm uppercase tracking-widest">Expertise</span>
+                    <h2 className="font-hedvig text-4xl md:text-5xl font-bold mt-2 text-black">
                         Skills & Technologies
                     </h2>
-                    <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
+                    <p className="text-[#555] font-doto mt-4 max-w-2xl mx-auto">
                         A comprehensive toolkit for building modern, scalable applications
                     </p>
                 </div>
@@ -47,14 +47,14 @@ export function Skills() {
                     {skillCategories.map((category, index) => (
                         <div
                             key={index}
-                            className="group relative p-6 rounded-2xl border border-primary/10 bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm hover:border-emerald-500/30 transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/5 hover:-translate-y-1"
+                            className="group relative p-6 rounded-2xl border border-primary/10 bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm hover:border-red-500/30 transition-all duration-300 hover:shadow-xl hover:shadow-red-500/5 hover:-translate-y-1"
                         >
                             {/* Icon */}
                             <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${category.gradient} opacity-80 mb-4`}>
                                 <category.icon className="w-6 h-6 text-white" />
                             </div>
 
-                            <h3 className="text-lg font-bold text-foreground group-hover:text-emerald-500 transition-colors mb-4">
+                            <h3 className="text-lg font-hedvig font-bold text-[#222] group-hover:text-red-500 transition-colors mb-4">
                                 {category.title}
                             </h3>
 
@@ -62,7 +62,7 @@ export function Skills() {
                                 {category.skills.map((skill, i) => (
                                     <span
                                         key={i}
-                                        className="px-3 py-1.5 text-xs font-medium bg-primary/5 text-muted-foreground rounded-lg border border-primary/10 hover:border-emerald-500/30 hover:bg-emerald-500/10 hover:text-emerald-500 transition-colors cursor-default"
+                                        className="px-3 py-1.5 text-xs font-bold font-doto bg-red-500/5 text-[#555] rounded-lg border border-red-500/10 hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-500 transition-colors cursor-default"
                                     >
                                         {skill}
                                     </span>
@@ -74,7 +74,7 @@ export function Skills() {
 
                 {/* Skill bars for key technologies */}
                 <div className="mt-16 p-8 rounded-2xl border border-primary/10 bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm">
-                    <h3 className="text-xl font-bold text-foreground mb-8 text-center">Core Competencies</h3>
+                    <h3 className="text-xl font-hedvig font-bold text-[#222] mb-8 text-center">Core Competencies</h3>
 
                     <div className="grid md:grid-cols-2 gap-x-12 gap-y-6 max-w-4xl mx-auto">
                         {[
@@ -87,12 +87,12 @@ export function Skills() {
                         ].map((skill, index) => (
                             <div key={index} className="space-y-2">
                                 <div className="flex justify-between text-sm">
-                                    <span className="text-foreground font-medium">{skill.name}</span>
-                                    <span className="text-emerald-500">{skill.level}%</span>
+                                    <span className="text-[#333] font-doto font-bold">{skill.name}</span>
+                                    <span className="text-[rgba(255,0,0,0.8)] font-doto font-bold">{skill.level}%</span>
                                 </div>
                                 <div className="h-2 bg-primary/10 rounded-full overflow-hidden">
                                     <div
-                                        className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full transition-all duration-1000 ease-out"
+                                        className="h-full bg-gradient-to-r from-red-500 to-teal-500 rounded-full transition-all duration-1000 ease-out"
                                         style={{ width: `${skill.level}%` }}
                                     ></div>
                                 </div>
