@@ -113,12 +113,15 @@ export function Hero() {
 
                 {/* Glassmorphism Menu Overlay */}
                 {isMenuOpen && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black-[rgba(0, 0, 0, 0.59)]  backdrop-blur-[5px] transition-all duration-300 ease-in-out animate-fadeIn">
-                        <nav className="flex flex-col items-center gap-10 text-3xl font-doto font-bold text-black tracking-widest">
-                            <a href="#home" onClick={() => setIsMenuOpen(false)} className="hover:text-[#cc0000] transition-colors drop-shadow-md animate-slideUp delay-100">HOME</a>
-                            <a href="#about" onClick={() => setIsMenuOpen(false)} className="hover:text-[#cc0000] transition-colors drop-shadow-md animate-slideUp delay-200">ABOUT</a>
-                            <a href="#projects" onClick={() => setIsMenuOpen(false)} className="hover:text-[#cc0000] transition-colors drop-shadow-md animate-slideUp delay-300">PROJECTS</a>
-                            <a href="#contact" onClick={() => setIsMenuOpen(false)} className="hover:text-[#cc0000] transition-colors drop-shadow-md animate-slideUp delay-400">CONTACT</a>
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black-[rgba(0, 0, 0, 0.59)] backdrop-blur-[5px] transition-all duration-300 ease-in-out animate-fadeIn">
+                        <nav className="flex flex-col items-center gap-8 text-2xl sm:text-3xl font-doto font-bold text-black tracking-widest">
+                            <a href="#home" onClick={() => setIsMenuOpen(false)} className="hover:text-[#cc0000] transition-colors drop-shadow-md animate-slideUp delay-75">HOME</a>
+                            <a href="#experience" onClick={() => setIsMenuOpen(false)} className="hover:text-[#cc0000] transition-colors drop-shadow-md animate-slideUp delay-100">EXPERIENCE</a>
+                            <a href="#projects" onClick={() => setIsMenuOpen(false)} className="hover:text-[#cc0000] transition-colors drop-shadow-md animate-slideUp delay-150">PROJECTS</a>
+                            <a href="#skills" onClick={() => setIsMenuOpen(false)} className="hover:text-[#cc0000] transition-colors drop-shadow-md animate-slideUp delay-200">SKILLS</a>
+                            <a href="#education" onClick={() => setIsMenuOpen(false)} className="hover:text-[#cc0000] transition-colors drop-shadow-md animate-slideUp delay-300">EDUCATION</a>
+                            <a href="#achievements" onClick={() => setIsMenuOpen(false)} className="hover:text-[#cc0000] transition-colors drop-shadow-md animate-slideUp delay-[400ms]">ACHIEVEMENTS</a>
+                            <a href="#contact" onClick={() => setIsMenuOpen(false)} className="hover:text-[#cc0000] transition-colors drop-shadow-md animate-slideUp delay-[500ms]">CONTACT</a>
                         </nav>
                     </div>
                 )}
