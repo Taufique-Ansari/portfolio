@@ -14,7 +14,7 @@ export function Hero() {
                 <div className="absolute inset-0 pointer-events-none flex justify-center">
                     {/* Mobile SVG Image & Structure */}
                     <svg className="absolute w-[98%] -top-[0%] h-full md:hidden" viewBox="0 0 374 811" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
-                        <path d="M0.5 690.059V36.0444C0.5 30.5216 4.97716 26.0444 10.5 26.0444L86 26.0444C91.5229 26.0444 96 21.5672 96 16.0444V10.5C96 4.97716 100.477 0.500005 106 0.500005L337 0.5C342.523 0.5 347 4.97714 347 10.5V16.0444C347 21.5673 351.477 26.0444 357 26.0444L363.5 26.0444C369.023 26.0444 373.5 30.5215 373.5 36.0444V690.059C373.5 695.582 369.023 700.059 363.5 700.059H339.273C333.75 700.059 329.273 704.536 329.273 710.059V716.5C329.273 722.023 324.796 726.5 319.273 726.5H37.4981C31.9753 726.5 27.4981 722.023 27.4981 716.5V710.059C27.4981 704.536 23.0209 700.059 17.4981 700.059H10.5C4.97715 700.059 0.5 695.582 0.5 690.059Z" fill="url(#pattern0_21_4)" stroke="black" stroke-opacity="0.4" />                        
+                        <path d="M0.5 690.059V36.0444C0.5 30.5216 4.97716 26.0444 10.5 26.0444L86 26.0444C91.5229 26.0444 96 21.5672 96 16.0444V10.5C96 4.97716 100.477 0.500005 106 0.500005L337 0.5C342.523 0.5 347 4.97714 347 10.5V16.0444C347 21.5673 351.477 26.0444 357 26.0444L363.5 26.0444C369.023 26.0444 373.5 30.5215 373.5 36.0444V690.059C373.5 695.582 369.023 700.059 363.5 700.059H339.273C333.75 700.059 329.273 704.536 329.273 710.059V716.5C329.273 722.023 324.796 726.5 319.273 726.5H37.4981C31.9753 726.5 27.4981 722.023 27.4981 716.5V710.059C27.4981 704.536 23.0209 700.059 17.4981 700.059H10.5C4.97715 700.059 0.5 695.582 0.5 690.059Z" fill="url(#pattern0_21_4)" stroke="black" strokeOpacity="0.4" />                        
                         <foreignObject x="0" y="0" width="379" height="811" clipPath="url(#heroClipMobile)">
                             <FlickeringGrid squareSize={2.5} gridGap={8} flickerChance={0.3} color="rgb(255, 0, 0)" maxOpacity={0.9} className="w-full h-full opacity-60 mix-blend-normal" />
                         </foreignObject>
@@ -60,12 +60,12 @@ export function Hero() {
 
 
                     {/* Red Details Top Right Area */}
-                    <button className="absolute top-[1.7%] sm:top-[4.5%] right-[1.7%] sm:right-[1.3%] flex items-center justify-center z-999" onClick={() => setIsMenuOpen(true)}>
-                        <div className="w-[5vw] sm:w-[2vw] h-[5vw] sm:h-[2vw] min-w-3 min-h-3 rounded-full border-[1px] border-[#cc0000] flex items-center justify-center shadow-inner">
-                            <div className="w-[50%] sm:w-[40%] h-[50%] sm:h-[40%] rounded-full bg-[#ff4d4d] shadow-sm animate-pulse"></div>
-                        </div>
-                    </button>
                 </div>
+                <button className={`absolute top-[1.7%] sm:top-[4.5%] right-[1.7%] sm:right-[1.3%] flex items-center justify-center z-999`} onClick={() => isMenuOpen ? setIsMenuOpen(false) : setIsMenuOpen(true)}>
+                    <div className="w-[5vw] sm:w-[2vw] h-[5vw] sm:h-[2vw] min-w-3 min-h-3 rounded-full border-[1px] border-[#cc0000] flex items-center justify-center shadow-inner">
+                        <div className={`w-[50%] sm:w-[40%] h-[50%] sm:h-[40%] rounded-full bg-[#ff4d4d] shadow-sm ${isMenuOpen ? 'bg-green-500' : 'bg-[#ff4d4d]'}`}></div>
+                    </div>
+                </button>
 
                 {/* Content Container Overlay */}
                 <div className="relative z-10 w-full h-full flex flex-col">
@@ -126,19 +126,19 @@ export function Hero() {
 
                 {/* Glassmorphism Menu Overlay */}
                 {isMenuOpen && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xl transition-all duration-300 ease-in-out">
-                        <button
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black-[rgba(0, 0, 0, 0.59)]  backdrop-blur-[5px] transition-all duration-300 ease-in-out animate-fadeIn">
+                        {/* <button
                             onClick={() => setIsMenuOpen(false)}
                             className="absolute top-8 right-8 text-4xl text-white font-light w-12 h-12 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/40 transition-colors"
                             aria-label="Close menu"
                         >
                             &times;
-                        </button>
-                        <nav className="flex flex-col items-center gap-10 text-3xl font-doto font-bold text-white tracking-widest">
-                            <a href="#home" onClick={() => setIsMenuOpen(false)} className="hover:text-[#cc0000] transition-colors drop-shadow-md">HOME</a>
-                            <a href="#about" onClick={() => setIsMenuOpen(false)} className="hover:text-[#cc0000] transition-colors drop-shadow-md">ABOUT</a>
-                            <a href="#projects" onClick={() => setIsMenuOpen(false)} className="hover:text-[#cc0000] transition-colors drop-shadow-md">PROJECTS</a>
-                            <a href="#contact" onClick={() => setIsMenuOpen(false)} className="hover:text-[#cc0000] transition-colors drop-shadow-md">CONTACT</a>
+                        </button> */}
+                        <nav className="flex flex-col items-center gap-10 text-3xl font-doto font-bold text-black tracking-widest">
+                            <a href="#home" onClick={() => setIsMenuOpen(false)} className="hover:text-[#cc0000] transition-colors drop-shadow-md animate-slideUp delay-100">HOME</a>
+                            <a href="#about" onClick={() => setIsMenuOpen(false)} className="hover:text-[#cc0000] transition-colors drop-shadow-md animate-slideUp delay-200">ABOUT</a>
+                            <a href="#projects" onClick={() => setIsMenuOpen(false)} className="hover:text-[#cc0000] transition-colors drop-shadow-md animate-slideUp delay-300">PROJECTS</a>
+                            <a href="#contact" onClick={() => setIsMenuOpen(false)} className="hover:text-[#cc0000] transition-colors drop-shadow-md animate-slideUp delay-400">CONTACT</a>
                         </nav>
                     </div>
                 )}
