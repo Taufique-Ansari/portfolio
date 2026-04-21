@@ -1,12 +1,95 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
+import gsap from "gsap";
 import { FlickeringGrid } from "@/components/ui/flickering-grid-hero";
+import { LoadingScreen } from "@/components/LoadingScreen";
 
 export function Hero() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const handleLoadComplete = useCallback(() => setIsLoaded(true), []);
+    const pathRef = useRef<SVGPathElement | null>(null);
+    const mobilePathRef = useRef<SVGPathElement | null>(null);
+    const heroTitleRef = useRef<HTMLHeadingElement | null>(null);
+    const heroNavRef = useRef<HTMLElement | null>(null);
+    const heroMarqueeRef = useRef<HTMLDivElement | null>(null);
+    const heroName = useRef<HTMLDivElement | null>(null);
+
+    // Both paths have identical SVG command structure (M V C H C V C H C V C H C V C H C V C H C V C H C Z)
+    // so GSAP can smoothly interpolate every numeric value between them.
+
+    // ─── Desktop SVG paths ──────────────────────────────────────────
+    // Initial: simple rounded rectangle (notches collapsed to top/bottom edges)
+    const INITIAL_PATH = "M0.5 655.5V25.5C0.5 11.6929 11.6929 0.5 25.5 0.5H185.569C199.376 0.5 210.569 0.5 210.569 0.5V0.5C210.569 0.5 221.762 0.5 235.569 0.5H1316.47C1330.28 0.5 1341.47 0.5 1341.47 0.5V0.5C1341.47 0.5 1352.67 0.5 1366.47 0.5H1369.5C1383.31 0.5 1394.5 11.6929 1394.5 25.5V655.5C1394.5 669.307 1383.31 680.5 1369.5 680.5H1254.21C1240.4 680.5 1229.21 680.5 1229.21 680.5V680.5C1229.21 680.5 1218.02 680.5 1204.21 680.5H126.399C112.592 680.5 101.399 680.5 101.399 680.5V680.5C101.399 680.5 90.2062 680.5 76.3991 680.5H25.5C11.6929 680.5 0.5 669.307 0.5 655.5Z";
+
+    // Final: complex shape with top & bottom notches
+    const FINAL_PATH = "M0.5 598.331V80.027C0.5 66.2199 11.6929 55.027 25.5 55.027H185.569C199.376 55.027 210.569 43.8341 210.569 30.027V25.5C210.569 11.6929 221.762 0.5 235.569 0.5H1316.47C1330.28 0.5 1341.47 11.6929 1341.47 25.5V30.027C1341.47 43.8341 1352.67 55.027 1366.47 55.027H1369.5C1383.31 55.027 1394.5 66.2198 1394.5 80.027V598.331C1394.5 612.138 1383.31 623.331 1369.5 623.331H1254.21C1240.4 623.331 1229.21 634.524 1229.21 648.331V655.5C1229.21 669.307 1218.02 680.5 1204.21 680.5H126.399C112.592 680.5 101.399 669.307 101.399 655.5V648.331C101.399 634.524 90.2062 623.331 76.3991 623.331H25.5C11.6929 623.331 0.5 612.138 0.5 598.331Z";
+
+    // ─── Mobile SVG paths (same command structure: M V C L C V C L C V C L C V C H C V C H C V C H C V C H C Z) ───
+    // Initial: flat rectangle (notches collapsed to edges)
+    const INITIAL_PATH_MOBILE = "M0.5 726V0.5C0.5 0.5 4.97716 0.5 10.5 0.5L86 0.5C91.5229 0.5 96 0.5 96 0.5V0.5C96 0.5 100.477 0.500005 106 0.500005L337 0.5C342.523 0.5 347 0.5 347 0.5V0.5C347 0.5 351.477 0.5 357 0.5L363.5 0.5C369.023 0.5 373.5 0.5 373.5 0.5V726C373.5 726 369.023 726.5 363.5 726.5H339.273C333.75 726.5 329.273 726.5 329.273 726.5V726.5C329.273 726.5 324.796 726.5 319.273 726.5H37.4981C31.9753 726.5 27.4981 726.5 27.4981 726.5V726.5C27.4981 726.5 23.0209 726.5 17.4981 726.5H10.5C4.97715 726.5 0.5 726 0.5 726Z";
+
+    // Final: complex mobile shape with top & bottom notches
+    const FINAL_PATH_MOBILE = "M0.5 690.059V36.0444C0.5 30.5216 4.97716 26.0444 10.5 26.0444L86 26.0444C91.5229 26.0444 96 21.5672 96 16.0444V10.5C96 4.97716 100.477 0.500005 106 0.500005L337 0.5C342.523 0.5 347 4.97714 347 10.5V16.0444C347 21.5673 351.477 26.0444 357 26.0444L363.5 26.0444C369.023 26.0444 373.5 30.5215 373.5 36.0444V690.059C373.5 695.582 369.023 700.059 363.5 700.059H339.273C333.75 700.059 329.273 704.536 329.273 710.059V716.5C329.273 722.023 324.796 726.5 319.273 726.5H37.4981C31.9753 726.5 27.4981 722.023 27.4981 716.5V710.059C27.4981 704.536 23.0209 700.059 17.4981 700.059H10.5C4.97715 700.059 0.5 695.582 0.5 690.059Z";
+
+    useEffect(() => {
+        if (!isLoaded) return;
+
+        // Use rAF to ensure React has committed the DOM before GSAP starts
+        requestAnimationFrame(() => {
+            // Desktop SVG morph
+            if (pathRef.current) {
+                gsap.fromTo(
+                    pathRef.current,
+                    { attr: { d: INITIAL_PATH } },
+                    {
+                        attr: { d: FINAL_PATH },
+                        duration: 3,
+                        ease: "power3.inOut",
+                    }
+                );
+            }
+            // Mobile SVG morph
+            if (mobilePathRef.current) {
+                gsap.fromTo(
+                    mobilePathRef.current,
+                    { attr: { d: INITIAL_PATH_MOBILE } },
+                    {
+                        attr: { d: FINAL_PATH_MOBILE },
+                        duration: 3,
+                        ease: "power3.inOut",
+                    }
+                );
+            }
+        });
+    }, [isLoaded]);
+
+    // Animate hero text content after loading completes
+    useEffect(() => {
+        if (!isLoaded) return;
+        const targets = [heroTitleRef.current, heroNavRef.current, heroMarqueeRef.current, heroName.current].filter(Boolean);
+        if (targets.length === 0) return;
+
+        gsap.fromTo(
+            targets,
+            { opacity: 0, y: 40, scale: 0.96 },
+            {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.5,
+                stagger: 0.15,
+                ease: "power4.out",
+                delay: 0.2,
+            }
+        );
+    }, [isLoaded]);
 
     return (
+        <>
+        <LoadingScreen onComplete={handleLoadComplete} />
         <section id="home" className="relative bg-white overflow-hidden p-2 md:p-0">
             <div className="relative w-full max-w-[1400px] aspect-[374/820] md:aspect-[1368/853] min-h-[500px] mx-auto flex items-center justify-center">
 
@@ -14,7 +97,7 @@ export function Hero() {
                 <div className="absolute inset-0 pointer-events-none flex justify-center">
                     {/* Mobile SVG Image & Structure */}
                     <svg className="absolute w-[98%] -top-[0%] h-full md:hidden" viewBox="0 0 374 811" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
-                        <path d="M0.5 690.059V36.0444C0.5 30.5216 4.97716 26.0444 10.5 26.0444L86 26.0444C91.5229 26.0444 96 21.5672 96 16.0444V10.5C96 4.97716 100.477 0.500005 106 0.500005L337 0.5C342.523 0.5 347 4.97714 347 10.5V16.0444C347 21.5673 351.477 26.0444 357 26.0444L363.5 26.0444C369.023 26.0444 373.5 30.5215 373.5 36.0444V690.059C373.5 695.582 369.023 700.059 363.5 700.059H339.273C333.75 700.059 329.273 704.536 329.273 710.059V716.5C329.273 722.023 324.796 726.5 319.273 726.5H37.4981C31.9753 726.5 27.4981 722.023 27.4981 716.5V710.059C27.4981 704.536 23.0209 700.059 17.4981 700.059H10.5C4.97715 700.059 0.5 695.582 0.5 690.059Z" fill="url(#pattern0_21_4)" stroke="black" strokeOpacity="0.4" />                        
+                        <path ref={mobilePathRef} d={INITIAL_PATH_MOBILE} fill="url(#pattern0_21_4)" stroke="black" strokeOpacity="0.3" />
                         <foreignObject x="0" y="0" width="379" height="811" clipPath="url(#heroClipMobile)">
                             <FlickeringGrid squareSize={2.5} gridGap={8} flickerChance={0.3} color="rgb(255, 0, 0)" maxOpacity={0.9} className="w-full h-full opacity-60 mix-blend-normal" />
                         </foreignObject>
@@ -27,9 +110,21 @@ export function Hero() {
                     </svg>
 
                     {/* Desktop SVG Image & Structure */}
-                    <svg className="absolute w-full -top-[15%] h-[110%] hidden md:block" viewBox="0 0 1400 651" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
-                        <path d="M0.5 568.331V80.027C0.5 66.2199 11.6929 55.027 25.5 55.027H185.569C199.376 55.027 210.569 43.8341 210.569 30.027V25.5C210.569 11.6929 221.762 0.5 235.569 0.5H1316.47C1330.28 0.5 1341.47 11.6929 1341.47 25.5V30.027C1341.47 43.8341 1352.67 55.027 1366.47 55.027H1369.5C1383.31 55.027 1394.5 66.2198 1394.5 80.027V568.331C1394.5 582.138 1383.31 593.331 1369.5 593.331H1254.21C1240.4 593.331 1229.21 604.524 1229.21 618.331V625.5C1229.21 639.307 1218.02 650.5 1204.21 650.5H126.399C112.592 650.5 101.399 639.307 101.399 625.5V618.331C101.399 604.524 90.2062 593.331 76.3991 593.331H25.5C11.6929 593.331 0.5 582.138 0.5 568.331Z" fill="url(#pattern0_12_137)" stroke="black" strokeOpacity="0.4" />
-                        <foreignObject x="0" y="0" width="1400" height="651" clipPath="url(#heroClip)">
+                    <svg
+                        className="absolute w-full top-[2%] h-[110%] hidden md:block"
+                        viewBox="0 0 1400 870"
+                        preserveAspectRatio="none"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            ref={pathRef}
+                            d={INITIAL_PATH}
+                            fill="url(#pattern0_12_137)"
+                            stroke="black"
+                            strokeOpacity="0.4"
+                        />
+                        <foreignObject x="0" y="0" width="1400" height="870" clipPath="url(#heroClip)">
                             <FlickeringGrid
                                 squareSize={3}
                                 gridGap={13}
@@ -39,10 +134,10 @@ export function Hero() {
                                 className="w-full h-full opacity-60 mix-blend-normal"
                             />
                         </foreignObject>
-                        <image x="35" y="595" width="55" height="55" href="/screw.png" style={{ mixBlendMode: 'multiply', opacity: 0.9 }} className="rounded-full" />
+                        <image x="35" y="620" width="55" height="55" href="/screw.png" style={{ mixBlendMode: 'multiply', opacity: 0.9 }} className="rounded-full" />
                         <defs>
                             <clipPath id="heroClip">
-                                <path d="M0.5 568.331V80.027C0.5 66.2199 11.6929 55.027 25.5 55.027H185.569C199.376 55.027 210.569 43.8341 210.569 30.027V25.5C210.569 11.6929 221.762 0.5 235.569 0.5H1316.47C1330.28 0.5 1341.47 11.6929 1341.47 25.5V30.027C1341.47 43.8341 1352.67 55.027 1366.47 55.027H1369.5C1383.31 55.027 1394.5 66.2198 1394.5 80.027V568.331C1394.5 582.138 1383.31 593.331 1369.5 593.331H1254.21C1240.4 593.331 1229.21 604.524 1229.21 618.331V625.5C1229.21 639.307 1218.02 650.5 1204.21 650.5H126.399C112.592 650.5 101.399 639.307 101.399 625.5V618.331C101.399 604.524 90.2062 593.331 76.3991 593.331H25.5C11.6929 593.331 0.5 582.138 0.5 568.331Z" />
+                                <path d="M0.5 600V80.027C0.5 66.2199 11.6929 55.027 25.5 55.027H185.569C199.376 55.027 210.569 43.8341 210.569 30.027V25.5C210.569 11.6929 221.762 0.5 235.569 0.5H1316.47C1330.28 0.5 1341.47 11.6929 1341.47 25.5V30.027C1341.47 43.8341 1352.67 55.027 1366.47 55.027H1369.5C1383.31 55.027 1394.5 66.2198 1394.5 80.027V568.331C1394.5 582.138 1383.31 593.331 1369.5 593.331H1254.21C1240.4 593.331 1229.21 604.524 1229.21 618.331V625.5C1229.21 639.307 1218.02 650.5 1204.21 650.5H126.399C112.592 650.5 101.399 639.307 101.399 625.5V618.331C101.399 604.524 90.2062 593.331 76.3991 593.331H25.5C11.6929 593.331 0.5 582.138 0.5 568.331Z" />
                             </clipPath>
                             <pattern id="pattern0_12_137" patternContentUnits="objectBoundingBox" width="1" height="1">
                                 <use xlinkHref="#image0_12_137" transform="matrix(0.00159744 0 0 0.00335955 0 -0.551538)" />
@@ -71,10 +166,10 @@ export function Hero() {
                 <div className="relative z-10 w-full h-full flex flex-col">
                     {/* Top Bar */}
                     <div className="flex mt-[3%] justify-between items-start font-doto text-sm sm:text-base lg:text-xl font-bold tracking-wider pl-[2%] pr-[7%]">
-                        <div className="text-[#333] relative -left-[2px] sm:left-0 -bottom-[15%] sm:bottom-[28%] text-[4vw] sm:text-[2vw]">
+                        <div ref={heroName} className="text-[#333] opacity-0 relative -left-[2px] sm:left-0 -bottom-[15%] sm:bottom-[28%] text-[4vw] sm:text-[2vw]">
                             TAUFIQUE<span className="text-[rgba(255,0,0,0.5)]">•</span>
                         </div>
-                        <nav className="hidden md:flex gap-4 lg:gap-8 text-[#555] font-extrabold z-10 text-[2vw] sm:text-xs lg:text-sm uppercase pt-1">
+                        <nav ref={heroNavRef} className="hidden md:flex gap-4 lg:gap-8 text-[#555] font-extrabold z-10 text-[2vw] sm:text-xs lg:text-sm uppercase pt-1" style={{ opacity: 0 }}>
                             <a href="#experience" className="hover:text-black hover:cursor-pointer transition-colors">EXPERIENCE</a>
                             <a href="#projects" className="hover:text-black hover:cursor-pointer transition-colors">PROJECTS</a>
                             <a href="#skills" className="hover:text-black hover:cursor-pointer transition-colors">SKILLS</a>
@@ -83,9 +178,27 @@ export function Hero() {
                         </nav>
                     </div>
 
+                    <svg xmlns="http://www.w3.org/2000/svg" style={{ display: "none" }}>
+                        <filter id="mirage">
+                            {/* <!-- Frequency controls the density of waves --> */}
+                            <feTurbulence type="fractalNoise" baseFrequency="0.01 0.05"
+                                numOctaves="1" result="noise" seed="0">
+                                <animate attributeName="seed" from="0" to="100"
+                                    dur="5s" repeatCount="indefinite" />
+                            </feTurbulence>
+                            {/* <!-- Scale controls the intensity of distortion --> */}
+                            <feDisplacementMap in="SourceGraphic" in2="noise"
+                                scale="10" xChannelSelector="R"
+                                yChannelSelector="G" />
+                        </filter>
+                    </svg>
+
+
+
+
                     {/* Main Title Center */}
                     <div className="relative flex-1 flex flex-col items-center justify-center text-center -mt-[20%] sm:-mt-[10%]">
-                        <h1 className="font-doto text-[15vw] sm:text-[clamp(2vw,5vw,6vw)] leading-[0.85] tracking-tighter m-0 drop-shadow-sm animate-fadeIn">
+                        <h1 ref={heroTitleRef} className="font-doto text-[15vw] sm:text-[clamp(2vw,5vw,6vw)] leading-[0.85] tracking-tighter m-0 drop-shadow-sm" style={{ opacity: 0 }}>
                             <span className="text-[#cc0000]">FULL</span><br />
                             <span className="text-[#cc0000]">STACK</span><br />
                             <span className="text-black">DEVELOPER</span>
@@ -93,11 +206,11 @@ export function Hero() {
                     </div>
 
                     <div>
-                        
+
                     </div>
 
                     {/* Bottom Info Marquee */}
-                    <div className="relative z-20 -top-[12.5%] sm:-top-[25%] w-[75%] sm:w-[79%] right-[3%] sm:right-[2%] mx-auto overflow-hidden whitespace-nowrap">
+                    <div ref={heroMarqueeRef} className="relative z-20 -top-[12.5%] sm:-top-[14%] w-[75%] sm:w-[79%] right-[3%] sm:right-[2%] mx-auto overflow-hidden whitespace-nowrap" style={{ opacity: 0 }}>
                         <div className="animate-marquee inline-block">
                             <p className="font-doto text-[#cc0000] font-semibold text-[3vw] sm:text-[1.7vw]">
                                 <span className="text-[#333] mr-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hi, I'm Taufique Ansari •</span>
@@ -127,5 +240,6 @@ export function Hero() {
                 )}
             </div>
         </section>
+        </>
     );
 }

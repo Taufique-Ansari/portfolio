@@ -220,3 +220,15 @@
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(16, 185, 129, 0.5);
 }
+
+.mirage-image {
+  filter: url(#mirage);
+  animation: shiver 2s infinite alternate;
+  /* Add blur for extra heat effect */
+  transition: filter 0.3s;
+}
+
+@keyframes shiver {
+  0% { transform: translateY(0px) scale(1); }
+  100% { transform: translateY(1px) scale(1.01); }
+}

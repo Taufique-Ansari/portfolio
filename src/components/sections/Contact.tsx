@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Mail, Phone, MapPin, Linkedin, Github, Code2, Send, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const contactInfo = [
     {
@@ -35,8 +36,8 @@ const socialLinks = [
     {
         icon: Github,
         label: "GitHub",
-        href: "https://github.com/taufiqueansari451",
-        username: "@taufiqueansari451",
+        href: "https://github.com/taufique-ansari",
+        username: "@taufique-ansari",
     },
     {
         icon: Code2,
@@ -54,6 +55,10 @@ export function Contact() {
     });
     const [isSubmitted, setIsSubmitted] = useState(false);
 
+    const headerRef = useScrollReveal<HTMLDivElement>({ y: 40, stagger: 0.1 });
+    const leftRef = useScrollReveal<HTMLDivElement>({ x: -40, y: 20, stagger: 0.15 });
+    const rightRef = useScrollReveal<HTMLDivElement>({ x: 40, y: 20, duration: 0.9 });
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         // Handle form submission
@@ -63,23 +68,23 @@ export function Contact() {
     };
 
     return (
-        <section id="contact" className="py-20 px-4 md:px-8 lg:px-16 relative bg-gradient-to-b from-background to-background/50">
+        <section id="contact" className="py-20 px-4 md:px-8 lg:px-16 relative bg-white">
             <div className="max-w-6xl mx-auto">
-                <div className="text-center mb-16">
-                    <span className="text-[rgba(255,0,0,0.8)] font-doto font-bold text-sm uppercase tracking-widest">Get In Touch</span>
-                    <h2 className="font-hedvig text-4xl md:text-5xl font-bold mt-2 text-black">
+                <div ref={headerRef} className="text-center mb-16">
+                    <span data-reveal className="text-[rgba(255,0,0,0.8)] font-doto font-bold text-sm uppercase tracking-widest">Get In Touch</span>
+                    <h2 data-reveal className="font-hedvig text-4xl md:text-5xl font-bold mt-2 text-[#111]">
                         Contact Me
                     </h2>
-                    <p className="text-[#555] font-doto mt-4 max-w-2xl mx-auto">
+                    <p data-reveal className="text-[#444] font-doto mt-4 max-w-2xl mx-auto">
                         I&apos;m always interested in new opportunities. Let&apos;s connect and discuss how I can contribute to your team.
                     </p>
                 </div>
 
                 <div className="grid lg:grid-cols-5 gap-8">
                     {/* Contact Info */}
-                    <div className="lg:col-span-2 space-y-6">
-                        <div className="p-6 rounded-2xl border border-primary/10 bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm">
-                            <h3 className="text-xl font-hedvig font-bold text-[#222] mb-6">Contact Information</h3>
+                    <div ref={leftRef} className="lg:col-span-2 space-y-6">
+                        <div data-reveal className="p-6 rounded-2xl border border-[#e0e0e0] bg-[#f9f9f9]">
+                            <h3 className="text-xl font-hedvig font-bold text-[#111] mb-6">Contact Information</h3>
 
                             <div className="space-y-4">
                                 {contactInfo.map((info, index) => (
@@ -93,15 +98,15 @@ export function Contact() {
                                         </div>
                                         <div>
                                             <p className="text-xs text-[rgba(255,0,0,0.8)] font-doto font-bold uppercase tracking-wider">{info.label}</p>
-                                            <p className="text-sm font-doto text-[#333] font-bold">{info.value}</p>
+                                            <p className="text-sm font-doto text-[#222] font-bold">{info.value}</p>
                                         </div>
                                     </a>
                                 ))}
                             </div>
                         </div>
 
-                        <div className="p-6 rounded-2xl border border-primary/10 bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm">
-                            <h3 className="text-xl font-hedvig font-bold text-[#222] mb-6">Social Profiles</h3>
+                        <div data-reveal className="p-6 rounded-2xl border border-[#e0e0e0] bg-[#f9f9f9]">
+                            <h3 className="text-xl font-hedvig font-bold text-[#111] mb-6">Social Profiles</h3>
 
                             <div className="space-y-3">
                                 {socialLinks.map((social, index) => (
@@ -116,7 +121,7 @@ export function Contact() {
                                             <social.icon className="w-5 h-5 text-red-500" />
                                         </div>
                                         <div>
-                                            <p className="text-sm font-doto text-[#333] font-bold">{social.label}</p>
+                                            <p className="text-sm font-doto text-[#222] font-bold">{social.label}</p>
                                             <p className="text-xs text-[rgba(255,0,0,0.8)] font-doto font-bold">{social.username}</p>
                                         </div>
                                     </a>
@@ -126,13 +131,13 @@ export function Contact() {
                     </div>
 
                     {/* Contact Form */}
-                    <div className="lg:col-span-3">
-                        <form onSubmit={handleSubmit} className="p-8 rounded-2xl border border-primary/10 bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm">
-                            <h3 className="text-xl font-hedvig font-bold text-[#222] mb-6">Send a Message</h3>
+                    <div ref={rightRef} className="lg:col-span-3">
+                        <form data-reveal onSubmit={handleSubmit} className="p-8 rounded-2xl border border-[#e0e0e0] bg-[#f9f9f9]">
+                            <h3 className="text-xl font-hedvig font-bold text-[#111] mb-6">Send a Message</h3>
 
                             <div className="space-y-6">
                                 <div>
-                                    <label htmlFor="name" className="block text-sm font-bold font-doto text-[#555] mb-2">
+                                    <label htmlFor="name" className="block text-sm font-bold font-doto text-[#444] mb-2">
                                         Your Name
                                     </label>
                                     <input
@@ -140,14 +145,14 @@ export function Contact() {
                                         id="name"
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-xl bg-white border border-primary/10 text-[#333] font-doto placeholder-[#aaa] focus:border-red-500/50 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all shadow-sm"
+                                        className="w-full px-4 py-3 rounded-xl bg-white border border-[#ddd] text-[#222] font-doto placeholder-[#aaa] focus:border-red-500/50 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all shadow-sm"
                                         placeholder="John Doe"
                                         required
                                     />
                                 </div>
 
                                 <div>
-                                    <label htmlFor="email" className="block text-sm font-bold font-doto text-[#555] mb-2">
+                                    <label htmlFor="email" className="block text-sm font-bold font-doto text-[#444] mb-2">
                                         Your Email
                                     </label>
                                     <input
@@ -155,14 +160,14 @@ export function Contact() {
                                         id="email"
                                         value={formData.email}
                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-xl bg-white border border-primary/10 text-[#333] font-doto placeholder-[#aaa] focus:border-red-500/50 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all shadow-sm"
+                                        className="w-full px-4 py-3 rounded-xl bg-white border border-[#ddd] text-[#222] font-doto placeholder-[#aaa] focus:border-red-500/50 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all shadow-sm"
                                         placeholder="john@example.com"
                                         required
                                     />
                                 </div>
 
                                 <div>
-                                    <label htmlFor="message" className="block text-sm font-bold font-doto text-[#555] mb-2">
+                                    <label htmlFor="message" className="block text-sm font-bold font-doto text-[#444] mb-2">
                                         Message
                                     </label>
                                     <textarea
@@ -170,7 +175,7 @@ export function Contact() {
                                         value={formData.message}
                                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                                         rows={5}
-                                        className="w-full px-4 py-3 rounded-xl bg-white border border-primary/10 text-[#333] font-doto placeholder-[#aaa] focus:border-red-500/50 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all resize-none shadow-sm"
+                                        className="w-full px-4 py-3 rounded-xl bg-white border border-[#ddd] text-[#222] font-doto placeholder-[#aaa] focus:border-red-500/50 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all resize-none shadow-sm"
                                         placeholder="Tell me about your project or opportunity..."
                                         required
                                     />

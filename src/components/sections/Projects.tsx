@@ -2,6 +2,7 @@
 
 import { ExternalLink, Github, Layers, Database, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const projects = [
     {
@@ -36,24 +37,28 @@ const projects = [
 ];
 
 export function Projects() {
+    const headerRef = useScrollReveal<HTMLDivElement>({ y: 40, stagger: 0.1 });
+    const gridRef = useScrollReveal<HTMLDivElement>({ y: 60, stagger: 0.2, duration: 0.9 });
+
     return (
-        <section id="projects" className="py-20 px-4 md:px-8 lg:px-16 relative bg-gradient-to-b from-background to-background/50">
+        <section id="projects" className="py-20 px-4 md:px-8 lg:px-16 relative bg-white">
             <div className="max-w-6xl mx-auto">
-                <div className="text-center mb-16">
-                    <span className="text-[rgba(255,0,0,0.8)] font-doto font-bold text-sm uppercase tracking-widest">Portfolio</span>
-                    <h2 className="font-hedvig text-4xl md:text-5xl font-bold mt-2 text-black">
+                <div ref={headerRef} className="text-center mb-16">
+                    <span data-reveal className="text-[rgba(255,0,0,0.8)] font-doto font-bold text-sm uppercase tracking-widest">Portfolio</span>
+                    <h2 data-reveal className="font-hedvig text-4xl md:text-5xl font-bold mt-2 text-[#111]">
                         Featured Projects
                     </h2>
-                    <p className="text-[#555] font-doto mt-4 max-w-2xl mx-auto">
+                    <p data-reveal className="text-[#444] font-doto mt-4 max-w-2xl mx-auto">
                         Showcasing my work in full-stack development, from enterprise applications to modern web platforms
                     </p>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-8">
+                <div ref={gridRef} className="grid md:grid-cols-2 gap-8">
                     {projects.map((project, index) => (
                         <div
                             key={index}
-                            className="group relative rounded-2xl border border-primary/10 bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm overflow-hidden hover:border-red-500/30 transition-all duration-500 hover:shadow-2xl hover:shadow-red-500/10"
+                            data-reveal
+                            className="group relative rounded-2xl border border-[#e0e0e0] bg-[#f9f9f9] overflow-hidden hover:border-red-500/30 transition-all duration-500 hover:shadow-2xl hover:shadow-red-500/10"
                         >
                             {/* Gradient overlay */}
                             <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
@@ -72,24 +77,26 @@ export function Projects() {
                                                 </Button>
                                             </a>
                                         )}
-                                        <Button variant="ghost" size="icon" className="hover:bg-red-500/10 hover:text-red-500">
-                                            <Github className="w-5 h-5" />
-                                        </Button>
+                                        <a href="https://www.github.com/taufique-ansari" target="_blank" rel="noopener noreferrer">
+                                            <Button variant="ghost" size="icon" className="hover:bg-red-500/10 hover:text-red-500">
+                                                <Github className="w-5 h-5 hover:bg-red-500/10 hover:text-red-500" />
+                                            </Button>
+                                        </a>
                                     </div>
                                 </div>
 
-                                <h3 className="text-xl md:text-2xl font-hedvig font-bold text-[#222] group-hover:text-red-500 transition-colors">
+                                <h3 className="text-xl md:text-2xl font-hedvig font-bold text-[#111] group-hover:text-red-500 transition-colors">
                                     {project.title}
                                 </h3>
                                 <p className="text-[rgba(255,0,0,0.8)] font-doto text-sm font-bold mt-1">{project.subtitle}</p>
 
-                                <p className="text-[#555] font-doto mt-4 text-sm leading-relaxed">
+                                <p className="text-[#333] font-doto mt-4 text-sm leading-relaxed">
                                     {project.description}
                                 </p>
 
                                 <ul className="mt-4 space-y-2">
                                     {project.features.map((feature, i) => (
-                                        <li key={i} className="flex items-start text-sm text-[#333] font-doto leading-relaxed">
+                                        <li key={i} className="flex items-start text-sm text-[#222] font-doto leading-relaxed">
                                             <Layers className="w-4 h-4 mr-2 mt-0.5 text-[rgba(255,0,0,0.8)] flex-shrink-0" />
                                             {feature}
                                         </li>
@@ -101,7 +108,7 @@ export function Projects() {
                                     {project.technologies.map((tech, i) => (
                                         <span
                                             key={i}
-                                            className="px-3 py-1 text-xs font-bold font-doto bg-red-500/5 text-[#555] rounded-full border border-red-500/10 hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-500 transition-colors cursor-default"
+                                            className="px-3 py-1 text-xs font-bold font-doto bg-red-500/5 text-[#444] rounded-full border border-red-500/10 hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-500 transition-colors cursor-default"
                                         >
                                             {tech}
                                         </span>
