@@ -39,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${inter.variable} ${doto.variable} ${hedvig.variable} font-sans antialiased bg-background text-foreground`}
+        className={`${inter.variable} ${doto.variable} ${hedvig.variable} font-sans antialiased bg-background text-foreground font-bold`}
       >
         {children}
       </body>

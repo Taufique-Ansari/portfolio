@@ -23,7 +23,7 @@ export function Footer() {
     const footerRef = useScrollReveal<HTMLElement>({ y: 30, stagger: 0.08 });
 
     return (
-        <footer ref={footerRef} className="relative py-12 px-4 md:px-8 lg:px-16 border-t border-[#e0e0e0] bg-[#f9f9f9]">
+        <footer ref={footerRef} className="relative py-12 px-4 md:px-8 lg:px-16 border-t border-[#e0e0e0] bg-[rgba(255,0,0,0.1)]">
             <div className="max-w-6xl mx-auto">
                 <div className="grid md:grid-cols-3 gap-8 mb-8">
                     {/* Brand */}

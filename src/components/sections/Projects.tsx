@@ -18,6 +18,7 @@ const projects = [
         ],
         icon: Database,
         gradient: "from-red-500 to-neutral-500",
+
     },
     {
         title: "BrandMate",
@@ -33,6 +34,7 @@ const projects = [
         icon: Globe,
         gradient: "from-red-500 to-neutral-500",
         link: "https://brandmate-platform.vercel.app",
+        gitrepo: "brandmate-platform",
     },
 ];
 
@@ -77,11 +79,15 @@ export function Projects() {
                                                 </Button>
                                             </a>
                                         )}
-                                        <a href="https://www.github.com/taufique-ansari" target="_blank" rel="noopener noreferrer">
-                                            <Button variant="ghost" size="icon" className="hover:bg-red-500/10 hover:text-red-500">
-                                                <Github className="w-5 h-5 hover:bg-red-500/10 hover:text-red-500" />
-                                            </Button>
-                                        </a>
+                                        {
+                                            project.gitrepo && (
+                                                <a href={`https://www.github.com/taufique-ansari/${project.gitrepo}`} target="_blank" rel="noopener noreferrer">
+                                                    <Button variant="ghost" size="icon" className="hover:bg-red-500/10 hover:text-red-500 cursor-pointer">
+                                                        <Github className="w-5 h-5 hover:bg-red-500/10 hover:text-red-500" />
+                                                    </Button>
+                                                </a>
+                                            )
+                                        }
                                     </div>
                                 </div>
 

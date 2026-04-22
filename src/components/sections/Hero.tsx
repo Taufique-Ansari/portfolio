@@ -97,7 +97,7 @@ export function Hero() {
                 {/* Background Structure */}
                 <div className="absolute inset-0 pointer-events-none flex justify-center">
                     {/* Mobile SVG Image & Structure */}
-                    <svg className="absolute w-[98%] -top-[0%] h-full md:hidden" viewBox="0 0 374 811" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+                    <svg className="absolute w-[98%] -top-[0%] h-full md:hidden overflow-hidden" viewBox="0 0 374 811" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                         <path ref={mobilePathRef} d={INITIAL_PATH_MOBILE} fill="url(#pattern0_21_4)" stroke="black" strokeOpacity="0.3" />
                         <foreignObject x="0" y="0" width="379" height="811" clipPath="url(#heroClipMobile)">
                             <FlickeringGrid squareSize={2.5} gridGap={8} flickerChance={0.3} color="rgb(255, 0, 0)" maxOpacity={0.9} className="w-full h-full opacity-60 mix-blend-normal" />
@@ -198,7 +198,7 @@ export function Hero() {
 
 
                     {/* Main Title Center */}
-                    <div className="relative flex-1 flex flex-col items-center justify-center text-center -mt-[20%] sm:-mt-[10%]">
+                    <div className="relative flex-1 flex flex-col items-center justify-center text-center -mt-[20%] sm:-mt-[10%] overflow-hidden">
                         {/* ASCII Portrait — behind the title, always rendered */}
                         <div className="absolute inset-0 flex items-center justify-center overflow-hidden z-0">
                             <AsciiPortrait cols={250} />
