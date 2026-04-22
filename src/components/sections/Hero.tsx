@@ -5,6 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { FlickeringGrid } from "@/components/ui/flickering-grid-hero";
 import { LoadingScreen } from "@/components/LoadingScreen";
+import { AsciiPortrait } from "@/components/AsciiPortrait";
 
 export function Hero() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -198,7 +199,11 @@ export function Hero() {
 
                     {/* Main Title Center */}
                     <div className="relative flex-1 flex flex-col items-center justify-center text-center -mt-[20%] sm:-mt-[10%]">
-                        <h1 ref={heroTitleRef} className="font-doto text-[15vw] sm:text-[clamp(2vw,5vw,6vw)] leading-[0.85] tracking-tighter m-0 drop-shadow-sm" style={{ opacity: 0 }}>
+                        {/* ASCII Portrait — behind the title, always rendered */}
+                        <div className="absolute inset-0 flex items-center justify-center overflow-hidden z-0">
+                            <AsciiPortrait cols={250} />
+                        </div>
+                        <h1 ref={heroTitleRef} className="relative z-10 font-doto text-[15vw] sm:text-[clamp(2vw,5vw,6vw)] leading-[1] tracking-tighter m-0 drop-shadow-sm top-[10%]" style={{ opacity: 0 }}>
                             <span className="text-[#cc0000]">FULL</span><br />
                             <span className="text-[#cc0000]">STACK</span><br />
                             <span className="text-black">DEVELOPER</span>

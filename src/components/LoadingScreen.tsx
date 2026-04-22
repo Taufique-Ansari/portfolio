@@ -111,7 +111,7 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
             w: vw * 0.35,
             h: vh * 0.3,
             r: 16,
-            duration: 1,
+            duration: 0.8,
             ease: "power4.inOut",
             onUpdate: updateClip,
         });
@@ -121,7 +121,7 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
             w: vw * 0.7,
             h: vh * 0.65,
             r: 8,
-            duration: 1,
+            duration: 0.8,
             ease: "power4.inOut",
             onUpdate: updateClip,
         });
