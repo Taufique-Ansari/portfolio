@@ -1,0 +1,100 @@
+/* scroll-ui styles */
+
+.scroll-timeline {
+  position: fixed;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30015;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 80vh;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+.scroll-timeline.visible {
+  opacity: 1;
+}
+
+.st-label {
+  position: absolute;
+  right: calc(100% + 14px);
+  font-family: var(--font-breton), sans-serif;
+  font-size: clamp(0.8rem, 1vw, 0.95rem);
+  color: #fff;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.scroll-pct {
+  position: fixed;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30015;
+  font-family: var(--font-breton), sans-serif;
+  font-size: clamp(0.8rem, 1vw, 0.95rem);
+  color: #fff;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.scroll-pct.visible {
+  opacity: 1;
+}
+
+.st-bar {
+  position: relative;
+  width: 2px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.st-seg {
+  flex: 1;
+  position: relative;
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  pointer-events: auto;
+  transform-origin: center;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.st-seg:hover {
+  transform: scaleX(3);
+}
+
+.scroll-timeline:not(.visible) .st-seg {
+  pointer-events: none;
+}
+
+.st-seg::before {
+  content: '';
+  position: absolute;
+  inset: 0 -10px;
+}
+
+.st-seg-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: #fff;
+}
+
+@media (max-width: 768px) {
+.scroll-timeline {
+    display: none;
+  }
+.scroll-pct {
+    display: none;
+  }
+}
