@@ -198,10 +198,10 @@ export default function initPages() {
     }
     function update(pp) {
       const step = Math.max(0, Math.min(1, pp)) * (N - 1)
-      cube.style.transform = `translateZ(${(-R).toFixed(1)}px) rotateX(${(-step * 90).toFixed(2)}deg)`
+      cube.style.transform = `translate3d(0, 0, ${(-R).toFixed(1)}px) rotateX(${(step * 90).toFixed(2)}deg)`
       faces.forEach((face, k) => {
         const idx = k + 4 * Math.round((step - k) / 4)
-        face.style.transform = `rotateX(${k * 90}deg) translateZ(${R.toFixed(1)}px)`
+        face.style.transform = `rotateX(${k * -90}deg) translate3d(0, 0, ${R.toFixed(1)}px)`
         if (idx < 0 || idx >= N) { face.style.visibility = 'hidden'; face.dataset.idx = '-1' }
         else { face.style.visibility = 'visible'; setFace(face, idx) }
       })
@@ -237,7 +237,7 @@ export default function initPages() {
     // Don't start a drag (or capture the pointer) on interactive controls — otherwise
     // the BACK button / links never receive their click.
     const onDown = (e) => {
-      if (e.target.closest && e.target.closest('[data-page-close], a, button, .face-info, .face-info-content')) return
+      if (e.target.closest && e.target.closest('[data-page-close], a, button')) return
       dragging = true
       lastY = e.clientY
     }

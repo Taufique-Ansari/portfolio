@@ -321,6 +321,7 @@
   perspective: 1700px;
   z-index: 10;
   opacity: 0; /* revealed by the overlay engine once faces are positioned */
+  touch-action: none;
 }
 
 .cube-scene {
@@ -328,19 +329,23 @@
   width: min(74vw, 1080px);
   height: 58vh;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
 }
 
 .cube {
   position: absolute;
   inset: 0;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
   will-change: transform;
+  touch-action: none;
 }
 
 .cube-face {
   position: absolute;
   inset: 0;
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .face-content {
@@ -708,41 +713,116 @@
 }
 
 @media (max-width: 768px) {
-.ruler {
+  .ruler {
     display: none;
   }
-.counter-wrap {
+  .counter-wrap {
     right: 1.2rem !important;
     left: auto !important;
   }
-.cube-scene {
-    width: 88vw;
-    height: 64vh;
+  .cube-scene {
+    width: min(88vw, 380px);
+    height: 68vh;
   }
   .face-content {
+    display: flex;
     flex-direction: column;
-    gap: 1rem;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
     height: 100%;
-    padding-bottom: 3.5rem;
+    overflow: visible;
+    background: rgba(22, 22, 24, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
   .face-content.layout-right {
     flex-direction: column;
   }
   .face-cover {
-    flex-basis: auto;
+    position: relative;
     width: 100%;
+    height: 45%;
+    overflow: hidden;
+    border-top-left-radius: 23px;
+    border-top-right-radius: 23px;
     flex-shrink: 0;
   }
+  .face-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 0;
+  }
   .face-name {
-    font-size: 1.4rem;
-    bottom: -2rem;
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    left: auto;
+    bottom: auto;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: #fff;
+    z-index: 10;
+    text-align: right;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
   }
   .face-info {
-    margin-top: 2.2rem;
-    flex: none;
-    width: 100%;
+    flex: 1;
+    padding: 1.4rem 1.4rem 1.2rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-width: 0;
+    background: transparent;
+    border-radius: 0 0 23px 23px;
+  }
+  .face-info-bg {
+    display: none;
+  }
+  .face-info-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .face-category {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: #ff1e00;
+    text-transform: uppercase;
+  }
+  .face-year {
+    font-family: var(--font-breton), sans-serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: #ff1e00;
+    margin-top: 0.3rem;
+  }
+  .face-desc {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 0.8rem;
+  }
+  .face-tags {
+    margin-top: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding-top: 1rem;
+  }
+  .face-tag {
+    font-size: 0.6rem;
+    color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    padding: 0.3em 0.7em;
+    border-radius: 50px;
   }
 }
 
