@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import { Inter } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
 import '@/shared/base.css'
 
 /* The reference's real custom faces (self-hosted from public/assests/fonts). */
@@ -56,7 +57,10 @@ export default function RootLayout({
       lang="fr"
       className={`${breton.variable} ${other.variable} ${zirena.variable} ${inter.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   )
 }
