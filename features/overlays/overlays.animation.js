@@ -4,7 +4,6 @@
 // replays its preloader. The Work overlay hosts a wheel/drag-driven 3D project cube.
 import gsap from 'gsap'
 import { PROJECTS } from '@/content/data'
-import { mock } from '@/shared/placeholder'
 import { mountAurora } from '@/shared/aurora'
 
 export default function initPages() {
@@ -26,8 +25,8 @@ export default function initPages() {
     mountAurora(document.getElementById('page-' + key + '-aurora'), { intensity: 1.15 })
   }
 
-  const lenisStop = () => { try { window.__lenis && window.__lenis.stop() } catch (e) {} }
-  const lenisStart = () => { try { window.__lenis && window.__lenis.start() } catch (e) {} }
+  const lenisStop = () => window.__lenis?.stop?.()
+  const lenisStart = () => window.__lenis?.start?.()
 
   let busy = false
   let openKey = null
@@ -141,7 +140,7 @@ export default function initPages() {
     let counterItemH = 38
 
     function faceHtml(p, right) {
-      const c = mock(p.id, 1500, 1000)
+      const c = p.cover
       return (
         `<div class="face-content ${right ? 'layout-right' : 'layout-left'}" data-lenis-prevent>` +
         `<div class="face-cover"><div class="face-name">${p.name}</div><img src="${c}" alt="${p.name}" decoding="async"></div>` +

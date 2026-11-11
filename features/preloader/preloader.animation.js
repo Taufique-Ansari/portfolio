@@ -105,14 +105,12 @@ export function runIntro({ onIntroDone }) {
 
   let keepIntroNameAnchored = false
   let nameAnchorRaf = 0
-  let _introSettledXvw = 0
 
   function placeIntroNameAtBottom() {
     layoutNames()
     const totalW = getTotalWidth()
     const offsetX = -(totalW / 2 - pLogo.offsetWidth / 2)
     const offsetX_vw = (offsetX / getViewportSize().width) * 100
-    _introSettledXvw = offsetX_vw
     introState.settledXvw = offsetX_vw
     const newH = pContent.offsetHeight
     const vh = getViewportSize().height

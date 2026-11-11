@@ -1,5 +1,4 @@
 import { PROJECTS } from '@/content/data'
-import { mock } from '@/shared/placeholder'
 import './projects.css'
 
 // Sticky project list (inside #section-after). The engine draws the fluid line,
@@ -17,7 +16,7 @@ export default function Projects() {
       <div className="projects-inner">
         <div className="projects-list" id="projects-list">
           {PROJECTS.map((p) => (
-            <div key={p.id} className="proj-item" data-id={p.id} data-img={mock(p.id, 1500, 1000)} data-date={p.date}>
+            <div key={p.id} className="proj-item" data-id={p.id} data-img={p.cover} data-date={p.date}>
               {p.name}
             </div>
           ))}

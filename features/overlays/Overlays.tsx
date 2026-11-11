@@ -1,5 +1,4 @@
 import { PROJECTS } from '@/content/data'
-import { mock } from '@/shared/placeholder'
 import './overlays.css'
 
 // Floating layers driven entirely by the engine: the project preview card +
@@ -14,7 +13,7 @@ export default function Overlays() {
             <span className="proj-date" id="proj-date">01 2025</span>
             <span className="proj-label">Preview</span>
           </div>
-          <img id="proj-cover" src={mock(PROJECTS[0].id, 1500, 1000)} alt="" width={1333} height={1000} />
+          <img id="proj-cover" src={PROJECTS[0].cover} alt="" width={1333} height={1000} />
         </div>
       </div>
       <div className="proj-cursor" id="proj-cursor">See project</div>

@@ -1,5 +1,4 @@
 import { PROJECTS } from '@/content/data'
-import { mock } from '@/shared/placeholder'
 import './overlays.css'
 
 // In-page "Work" overlay: the 3D project cube (wheel/drag driven by the engine),
@@ -34,11 +33,11 @@ export default function WorkOverlay() {
                 <div className={`face-content ${k % 2 ? 'layout-right' : 'layout-left'}`} data-lenis-prevent>
                   <div className="face-cover">
                     <div className="face-name">{p.name}</div>
-                    <img src={mock(p.id, 1500, 1000)} alt={p.name} decoding="async" />
+                    <img src={p.cover} alt={p.name} decoding="async" />
                   </div>
                   <div className="face-info">
                     <div className="face-info-bg">
-                      <img src={mock(p.id, 1500, 1000)} alt="" decoding="async" />
+                      <img src={p.cover} alt="" decoding="async" />
                     </div>
                     <div className="face-info-content">
                       <div className="face-category">{p.category}</div>

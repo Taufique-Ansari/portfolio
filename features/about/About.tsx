@@ -1,5 +1,4 @@
 import ArrowGlyph from '@/shared/ArrowGlyph'
-import { mock } from '@/shared/placeholder'
 import './about.css'
 import profileImg from '@/public/assests/images/self/me.png'
 

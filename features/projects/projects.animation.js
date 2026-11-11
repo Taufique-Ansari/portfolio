@@ -4,7 +4,6 @@
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { scroll } from '@/shared/smooth-scroll'
-import { mock } from '@/shared/placeholder'
 import { PROJECTS as PROJECT_LIST } from '@/content/data'
 
 export function initProjects() {
@@ -167,9 +166,24 @@ export function initProjects() {
   PROJECT_LIST.forEach((p) => {
     PROJECTS[p.id] = {
       desc: p.desc, category: p.category, year: p.year, tags: p.tags,
-      images: [0, 1, 2].map((k) => mock(p.id + '-' + (k + 2), 1500, 1000)),
+      media: p.media,
     }
   })
+
+  // `.mp4` media plays as a looping muted video; its poster/thumbnail is the same name `.webp`.
+  const isVideo = (src) => src.endsWith('.mp4')
+  const posterOf = (src) => (isVideo(src) ? src.replace(/\.mp4$/, '.webp') : src)
+  function showSelected(src) {
+    const el = detailSelected.firstElementChild
+    if (el && (el.tagName === 'VIDEO') === isVideo(src)) {
+      if (el.getAttribute('src') !== src) { if (isVideo(src)) el.poster = posterOf(src); el.src = src }
+      return
+    }
+    detailSelected.innerHTML = isVideo(src)
+      ? '<video src="' + src + '" poster="' + posterOf(src) + '" autoplay muted loop playsinline></video>'
+      : '<img src="' + src + '" alt="" decoding="async">'
+    _cachedSelImg = detailSelected.firstElementChild
+  }
 
   const detailEl = document.getElementById('project-detail')
   const detailTitle = document.getElementById('detail-title')
@@ -188,8 +202,14 @@ export function initProjects() {
   let projectOpen = false
   let _flyingSourceItem = null
   let _galleryRAF = null
-  let _galleryY = 0, _galleryMaxScroll = 0
+  let _galleryY = 0
   let _qGalleryY = null
+  // Measured live: thumbnails may still be loading when the detail view opens.
+  function scrollGalleryTo(y) {
+    const max = Math.max(0, detailThumbsInner.scrollHeight - detailThumbs.clientHeight)
+    _galleryY = Math.max(-max, Math.min(0, y))
+    if (_qGalleryY) _qGalleryY(_galleryY)
+  }
   let _activeThumbIdx = -1
   let _thumbImgs = []
 
@@ -213,7 +233,7 @@ export function initProjects() {
       if (_activeThumbIdx >= 0 && _thumbImgs[_activeThumbIdx]) _thumbImgs[_activeThumbIdx].classList.remove('active')
       _thumbImgs[closestIdx].classList.add('active')
       _activeThumbIdx = closestIdx
-      if (_cachedSelImg) _cachedSelImg.src = _thumbImgs[closestIdx].src
+      showSelected(_thumbImgs[closestIdx].dataset.src)
     }
     _galleryRAF = requestAnimationFrame(updateActiveThumb)
   }
@@ -248,22 +268,26 @@ export function initProjects() {
     detailDesc.textContent = proj.desc
     detailTags.innerHTML = proj.tags.map((t) => '<span class="detail-tag">' + t + '</span>').join('')
 
-    const allImages = [clickedItem.dataset.img].concat(proj.images)
-    detailThumbsInner.innerHTML = allImages.map((src) => '<img src="' + src + '" alt="" decoding="async">').join('')
-    detailSelected.innerHTML = '<img src="' + allImages[0] + '" alt="" decoding="async">'
+    detailThumbsInner.innerHTML = proj.media
+      .map((src) => '<img src="' + posterOf(src) + '" data-src="' + src + '"' + (isVideo(src) ? ' class="is-video"' : '') + ' alt="" decoding="async">')
+      .join('')
+    detailSelected.innerHTML = ''
+    showSelected(proj.media[0])
     detailThumbsInner.querySelectorAll('img').forEach((img, i) => {
       if (img.decode) img.decode().catch(() => {})
       img.addEventListener('click', () => {
         if (_activeThumbIdx >= 0 && _thumbImgs[_activeThumbIdx]) _thumbImgs[_activeThumbIdx].classList.remove('active')
         img.classList.add('active')
         _activeThumbIdx = i
-        if (_cachedSelImg) _cachedSelImg.src = img.src
+        showSelected(img.dataset.src)
+        // centre it on the rail so the closest-to-centre tracker keeps it active
+        const r = img.getBoundingClientRect(), t = detailThumbs.getBoundingClientRect()
+        scrollGalleryTo(gsap.getProperty(detailThumbsInner, 'y') - (r.top + r.height / 2 - (t.top + t.height / 2)))
       })
     })
     _activeThumbIdx = 0
     _thumbImgs = [].slice.call(detailThumbsInner.querySelectorAll('img'))
     _thumbImgs[0].classList.add('active')
-    _cachedSelImg = detailSelected.querySelector('img')
     _galleryY = 0
     gsap.set(detailThumbsInner, { y: 0 })
 
@@ -283,7 +307,6 @@ export function initProjects() {
     tl.to(detailBack, { opacity: 1, duration: 0.5, ease: 'power2.out' }, 1.3)
     tl.fromTo(detailGalleryWrap, { opacity: 0 }, { opacity: 1, duration: 0.8, ease: 'power3.out' }, 1.2)
     tl.add(() => {
-      _galleryMaxScroll = Math.max(0, detailThumbsInner.scrollHeight - detailThumbs.clientHeight)
       _qGalleryY = gsap.quickTo(detailThumbsInner, 'y', { duration: 0.8, ease: 'power2.out' })
       _galleryRAF = requestAnimationFrame(updateActiveThumb)
     })
@@ -333,6 +356,7 @@ export function initProjects() {
       _activeThumbIdx = -1
       _thumbImgs = []
       _cachedSelImg = null
+      detailSelected.innerHTML = '' // stops any playing video
       if (_flyingSourceItem) { _flyingSourceItem.style.visibility = ''; _flyingSourceItem = null }
       lenis.start()
       ScrollTrigger.refresh()
@@ -343,8 +367,7 @@ export function initProjects() {
     if (!projectOpen) return
     e.preventDefault()
     const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX
-    _galleryY = Math.max(-_galleryMaxScroll, Math.min(0, _galleryY - delta))
-    if (_qGalleryY) _qGalleryY(_galleryY)
+    scrollGalleryTo(_galleryY - delta)
   }, { passive: false })
 
   let _detailTouchStartY = 0
@@ -358,8 +381,7 @@ export function initProjects() {
     const y = e.touches[0].clientY
     const delta = _detailTouchStartY - y
     _detailTouchStartY = y
-    _galleryY = Math.max(-_galleryMaxScroll, Math.min(0, _galleryY - delta))
-    if (_qGalleryY) _qGalleryY(_galleryY)
+    scrollGalleryTo(_galleryY - delta)
   }, { passive: false })
 
   detailBack.addEventListener('click', closeProject)

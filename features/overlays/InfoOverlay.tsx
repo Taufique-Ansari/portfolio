@@ -1,5 +1,4 @@
 import { INFO, SKILL_GROUPS, SOCIALS } from '@/content/data'
-import { mock } from '@/shared/placeholder'
 import './overlays.css'
 import profileImg from '@/public/assests/images/self/me.png'
 // In-page "Info" overlay — about + skills, over the aurora shader.
