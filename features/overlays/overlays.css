@@ -656,6 +656,15 @@
   max-width: 44rem;
 }
 
+.pc-exp {
+  margin-top: 3rem;
+  max-width: 44rem;
+}
+
+.pc-exp .pc-label {
+  margin-bottom: 1rem;
+}
+
 .pc-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));

@@ -92,6 +92,16 @@ export const SKILL_GROUPS: SkillGroup[] = [
   { group: 'methodologies', title: 'Methodologies', items: ['Agile (Scrum)', 'SDLC', 'TDD', 'Microservices'] },
 ]
 
+// Newest first. Totals shown in the Info overlay heading.
+export const EXPERIENCE = {
+  summary: '2 yrs freelance · 1 yr Cognizant',
+  roles: [
+    { period: 'Aug 2026 — Present', role: 'Freelance Full Stack Engineer' },
+    { period: 'Aug 2025 — Aug 2026', role: 'Full Stack Engineer, Cognizant' },
+    { period: 'Aug 2024 — Aug 2025', role: 'Freelance Full Stack Engineer' },
+  ],
+}
+
 export const SOCIALS = {
   leetcode: 'https://leetcode.com/u/taufiqueansari451',
   linkedin: 'https://www.linkedin.com/in/taufique-ansari1',

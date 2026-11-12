@@ -1,4 +1,4 @@
-import { INFO, SKILL_GROUPS, SOCIALS } from '@/content/data'
+import { EXPERIENCE, INFO, SKILL_GROUPS, SOCIALS } from '@/content/data'
 import './overlays.css'
 import profileImg from '@/public/assests/images/self/me.png'
 // In-page "Info" overlay — about + skills, over the aurora shader.
@@ -36,6 +36,16 @@ export default function InfoOverlay() {
           <h2 className="pc-heading">{INFO.heading}</h2>
           <p className="pc-lead">{INFO.lead}</p>
           <p className="pc-body">{INFO.body}</p>
+
+          <div className="pc-exp">
+            <div className="pc-label">Experience · {EXPERIENCE.summary}</div>
+            {EXPERIENCE.roles.map((r) => (
+              <div className="meta-row" key={r.period}>
+                <span className="meta-k">{r.period}</span>
+                <span className="meta-v">{r.role}</span>
+              </div>
+            ))}
+          </div>
 
           <div className="pc-grid">
             {SKILL_GROUPS.map((g) => (

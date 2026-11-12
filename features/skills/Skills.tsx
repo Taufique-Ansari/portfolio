@@ -10,8 +10,8 @@ export default function Skills() {
         <div className="skills-left">
           <div className="skills-subtitle">Skills</div>
           <div className="skills-text">
-            Full stack engineer at Cognizant, passionate about web development, backend and
-            production-grade systems.
+            Freelance full stack engineer with 3 years of experience, passionate about web
+            development, backend and production-grade systems.
           </div>
           <div className="skills-separator" />
           <div>
